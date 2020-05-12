@@ -48,11 +48,12 @@ or
 sudo pacman -S arm-none-eabi-gdb
 ```
 
-On Ubuntu versions 18.04 and higher this package was replaced by the gdb-multiarch package
-```
-sudo apt-get install gdb-multiarch
-```
-This means that in later chapters you will need to specify a different debugger in some scripts, so keep this in mind.
+> If the `arm-none-eabi-gdb` package does not exist in your package manager it might be that you're using a system based on Ubuntu 18.04 or later. where this package
+> was replaced by the gdb-multiarch package;
+> ```
+> sudo apt-get install gdb-multiarch
+> ```
+> Keep in mind that in later chapters you will need to specify a different debugger in some scripts.
 
 Now that we have all the prerequisites set up we can start programming. In the next chapter we'll show how easy it is to create our first embedded software to blink
 a led.
