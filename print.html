@@ -185,10 +185,13 @@ probably a package for your package manager available that can be installed simi
 <p>or</p>
 <pre><code>sudo pacman -S arm-none-eabi-gdb
 </code></pre>
-<p>On Ubuntu versions 18.04 and higher this package was replaced by the gdb-multiarch package</p>
+<blockquote>
+<p>If the <code>arm-none-eabi-gdb</code> package does not exist in your package manager it might be that you're using a system based on Ubuntu 18.04 or later. where this package
+was replaced by the gdb-multiarch package;</p>
 <pre><code>sudo apt-get install gdb-multiarch
 </code></pre>
-<p>This means that in later chapters you will need to specify a different debugger in some scripts, so keep this in mind.</p>
+<p>Keep in mind that in later chapters you will need to specify a different debugger in some scripts.</p>
+</blockquote>
 <p>Now that we have all the prerequisites set up we can start programming. In the next chapter we'll show how easy it is to create our first embedded software to blink
 a led.</p>
 <h1><a class="header" href="#blink-a-led" id="blink-a-led">Blink a led</a></h1>
