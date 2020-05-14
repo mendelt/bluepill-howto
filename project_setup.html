@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Links - Bluepill Rust HowTo</title>
+        <title>Project setup - Bluepill Rust HowTo</title>
         
 
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
@@ -81,7 +81,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div id="sidebar-scrollbox" class="sidebar-scrollbox">
-                <ol class="chapter"><li class="expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> Introduction and Setup</a></li><li><ol class="section"><li class="expanded "><a href="setup_hardware.html"><strong aria-hidden="true">1.1.</strong> Hardware setup</a></li><li class="expanded "><a href="setup_software.html"><strong aria-hidden="true">1.2.</strong> Software setup</a></li></ol></li><li class="expanded "><a href="blink.html"><strong aria-hidden="true">2.</strong> Blink a led</a></li><li><ol class="section"><li class="expanded "><a href="project_setup.html"><strong aria-hidden="true">2.1.</strong> Project setup</a></li><li class="expanded "><a href="programming.html"><strong aria-hidden="true">2.2.</strong> Programming the board</a></li><li class="expanded "><a href="debugging.html"><strong aria-hidden="true">2.3.</strong> Debugging your code</a></li><li class="expanded "><a href="semihosting.html"><strong aria-hidden="true">2.4.</strong> Text output with semihosting</a></li><li class="spacer"></li></ol></li><li class="expanded "><a href="links.html" class="active">Links</a></li></ol>
+                <ol class="chapter"><li class="expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> Introduction and Setup</a></li><li><ol class="section"><li class="expanded "><a href="setup_hardware.html"><strong aria-hidden="true">1.1.</strong> Hardware setup</a></li><li class="expanded "><a href="setup_software.html"><strong aria-hidden="true">1.2.</strong> Software setup</a></li></ol></li><li class="expanded "><a href="blink.html"><strong aria-hidden="true">2.</strong> Blink a led</a></li><li><ol class="section"><li class="expanded "><a href="project_setup.html" class="active"><strong aria-hidden="true">2.1.</strong> Project setup</a></li><li class="expanded "><a href="programming.html"><strong aria-hidden="true">2.2.</strong> Programming the board</a></li><li class="expanded "><a href="debugging.html"><strong aria-hidden="true">2.3.</strong> Debugging your code</a></li><li class="expanded "><a href="semihosting.html"><strong aria-hidden="true">2.4.</strong> Text output with semihosting</a></li><li class="spacer"></li></ol></li><li class="expanded "><a href="links.html">Links</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -148,21 +148,58 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1><a class="header" href="#links" id="links">Links</a></h1>
-<p>A collection of resources on Embedded and Rust programming</p>
-<p><a href="https://github.com/rust-embedded/awesome-embedded-rust">Amazing Embedded Rust</a>
-<a href="https://rust-embedded.github.io/discovery/">Discovery</a></p>
+                        <h1><a class="header" href="#project-setup" id="project-setup">Project setup</a></h1>
+<p>This chapter shows you step by step how to set up a rust project to target the bluepill (or other embedded) target. This is a great way to introduce all the separate parts of a project and explain them bit-by-bit. </p>
+<blockquote>
+<h2><a class="header" href="#the-easy-way" id="the-easy-way">The easy way</a></h2>
+<p>If you just want to get started programming you can also use cargo generate to use the bluepill-template
+project. This will set all this up for you instead of you having to type it all in manually.
+Cargo generate can be installed with the following command;</p>
+<pre><code>cargo install cargo-generate
+</code></pre>
+<p>You can then start a new project;</p>
+<pre><code>cargo generate --git https://github.com/mendelt/bluepill-template
+</code></pre>
+</blockquote>
+<p>You can create a project the same way you do for normal Rust programs using cargo new;</p>
+<pre><code>cargo new hello-stm32
+</code></pre>
+<p>This will initialize a directory with a simple project for you.</p>
+<p>We will need to tell cargo to use the <code>thumbv7m-none-eabi</code> target among other things. To do this you can create a new text-file in the .cargo folder in your project
+directory called <code>.cargo/config</code> with the following contents;</p>
+<pre><code>[build]
+target = &quot;thumbv7m-none-eabi&quot;
+
+[target.thumbv7m-none-eabi]
+runner = &quot;arm-none-eabi-gdb -q -x openocd.gdb&quot;
+# runner = &quot;gdb-multiarch -q -x openocd.gdb&quot;
+
+rustflags = [
+    &quot;-C&quot;,
+    &quot;link-arg=-Tlink.x&quot;
+]
+</code></pre>
+<p>This will tell cargo to use the thumbv7m-none-eabi target for our project by default. The next section in the file configures some flags for the rust compiler and tells
+cargo it should use the gdb debugger for our platform to run our software instead of trying to start compiled programs itself. This will allow us to use the <code>cargo run</code>
+command to start debugging on our target system.</p>
+<blockquote>
+<p>If you installed the <code>gdb-multiarch</code> package instead of <code>arm-none-eabi-gdb</code> in the previous chapter you will need to comment out the runner line and un-comment the next line in this file to make this work for you.</p>
+</blockquote>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
                         
-                            <a rel="prev" href="semihosting.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="blink.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
                         
 
+                        
+                            <a rel="next" href="programming.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
                         
 
                         <div style="clear: both"></div>
@@ -172,11 +209,15 @@
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
                 
-                    <a href="semihosting.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a href="blink.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 
 
+                
+                    <a href="programming.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
                 
             </nav>
 

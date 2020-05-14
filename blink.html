@@ -81,7 +81,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div id="sidebar-scrollbox" class="sidebar-scrollbox">
-                <ol class="chapter"><li class="expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> Introduction and Setup</a></li><li><ol class="section"><li class="expanded "><a href="setup_hardware.html"><strong aria-hidden="true">1.1.</strong> Hardware setup</a></li><li class="expanded "><a href="setup_software.html"><strong aria-hidden="true">1.2.</strong> Software setup</a></li></ol></li><li class="expanded "><a href="blink.html" class="active"><strong aria-hidden="true">2.</strong> Blink a led</a></li><li class="expanded "><a href="programming.html"><strong aria-hidden="true">3.</strong> Programming the bluepill</a></li><li class="expanded "><a href="semihosting.html"><strong aria-hidden="true">4.</strong> Text output with Semihosting</a></li><li class="expanded "><a href="debugging.html"><strong aria-hidden="true">5.</strong> Debugging</a></li><li class="spacer"></li><li class="expanded affix "><a href="links.html">Links</a></li></ol>
+                <ol class="chapter"><li class="expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> Introduction and Setup</a></li><li><ol class="section"><li class="expanded "><a href="setup_hardware.html"><strong aria-hidden="true">1.1.</strong> Hardware setup</a></li><li class="expanded "><a href="setup_software.html"><strong aria-hidden="true">1.2.</strong> Software setup</a></li></ol></li><li class="expanded "><a href="blink.html" class="active"><strong aria-hidden="true">2.</strong> Blink a led</a></li><li><ol class="section"><li class="expanded "><a href="project_setup.html"><strong aria-hidden="true">2.1.</strong> Project setup</a></li><li class="expanded "><a href="programming.html"><strong aria-hidden="true">2.2.</strong> Programming the board</a></li><li class="expanded "><a href="debugging.html"><strong aria-hidden="true">2.3.</strong> Debugging your code</a></li><li class="expanded "><a href="semihosting.html"><strong aria-hidden="true">2.4.</strong> Text output with semihosting</a></li><li class="spacer"></li></ol></li><li class="expanded "><a href="links.html">Links</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -150,42 +150,6 @@
                     <main>
                         <h1><a class="header" href="#blink-a-led" id="blink-a-led">Blink a led</a></h1>
 <p>In this chapter we will walk through a simle but complete project from start to finish. We will first set up a Rust project to target the stm32 on the bluepill board. We will create a simple program to blink a led. Then we will demonstrate how to build the code and program the board and we will show how to run the program in a debugger.</p>
-<h2><a class="header" href="#set-up-the-project" id="set-up-the-project">Set up the project</a></h2>
-<blockquote>
-<h3><a class="header" href="#the-easy-way" id="the-easy-way">The easy way</a></h3>
-<p>This chapter shows you step by step how to set up a rust project to target the bluepill (or other embedded) target. This is a great way to introduce all the
-separate parts of a project and explain them bit-by-bit. If you just want to get started programming you can also use cargo generate to use the bluepill-template
-project. This will set all this up for you instead of you having to type it all in manually.
-Cargo generate can be installed with the following command;</p>
-<pre><code>cargo install cargo-generate
-</code></pre>
-<p>You can then start a new project;</p>
-<pre><code>cargo generate --git https://github.com/mendelt/bluepill-template
-</code></pre>
-</blockquote>
-<p>You can create a project the same way you do for normal Rust programs using cargo new;</p>
-<pre><code>cargo new hello-stm32
-</code></pre>
-<p>This will initialize a directory with a simple project for you.</p>
-<p>We will need to tell cargo to use the <code>thumbv7m-none-eabi</code> target among other things. To do this you can create a new text-file in the .cargo folder in your project
-directory called <code>.cargo/config</code> with the following contents;</p>
-<pre><code>[build]
-target = &quot;thumbv7m-none-eabi&quot;
-
-[target.thumbv7m-none-eabi]
-runner = &quot;arm-none-eabi-gdb -q -x openocd.gdb&quot;
-# runner = &quot;gdb-multiarch -q -x openocd.gdb&quot;
-
-rustflags = [
-    &quot;-C&quot;,
-    &quot;link-arg=-Tlink.x&quot;
-]
-</code></pre>
-<p>This will tell cargo to use the thumbv7m-none-eabi target for our project by default. The next section in the file configures some flags for the rust compiler and tells
-cargo it should use the gdb debugger for our platform to run our software instead of trying to start compiled programs itself. This will allow us to use the <code>cargo run</code>
-command to start debugging on our target system.</p>
-<p>If you installed the <code>gdb-multiarch</code> package instead of <code>arm-none-eabi-gdb</code> in the previous chapter you will need to comment out the runner line and un-comment the next
-line in this file to make this work for you.</p>
 
                     </main>
 
@@ -198,7 +162,7 @@ line in this file to make this work for you.</p>
                         
 
                         
-                            <a rel="next" href="programming.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next" href="project_setup.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
                         
@@ -216,7 +180,7 @@ line in this file to make this work for you.</p>
                 
 
                 
-                    <a href="programming.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a href="project_setup.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
                 
