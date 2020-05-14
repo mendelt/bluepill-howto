@@ -1,6 +1,8 @@
 # Bluepill Rust HowTo
 
 - [Introduction and Setup](./introduction.md)
+  - [Hardware setup](./setup_hardware.md)
+  - [Software setup](./setup_software.md)
 - [Blink a led](./blink.md)
 - [Programming the bluepill](./programming.md)
 - [Text output with Semihosting](./semihosting.md)
