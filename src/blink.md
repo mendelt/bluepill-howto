@@ -1,13 +1,5 @@
 # Blink a led
-Now we will set up a first working program for the bluepill to blink a led. This will show how to set up a Rust project to target the board. And how to quickly build and
-run your software on the board using OpenOCD and the GDB debugger.
-
-But first we will connect our hardware so we are able to talk to it.
-
-## Connect the STM32 and the bluepill
-
-TODO: explain connecting the stm32 to the debug header and usb
-TODO: test the connection
+In this chapter we will walk through a simle but complete project from start to finish. We will first set up a Rust project to target the stm32 on the bluepill board. We will create a simple program to blink a led. Then we will demonstrate how to build the code and program the board and we will show how to run the program in a debugger.
 
 ## Set up the project
 > ### The easy way
