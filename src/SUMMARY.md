@@ -4,9 +4,10 @@
   - [Hardware setup](./setup_hardware.md)
   - [Software setup](./setup_software.md)
 - [Blink a led](./blink.md)
-- [Programming the bluepill](./programming.md)
-- [Text output with Semihosting](./semihosting.md)
-- [Debugging](./debugging.md)
+  - [Project setup](./project_setup.md)
+  - [Programming the board](./programming.md)
+  - [Debugging your code](./debugging.md)
+  - [Text output with semihosting](./semihosting.md)
 
 Peripherals
   GPIO
