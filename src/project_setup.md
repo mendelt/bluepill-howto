@@ -41,3 +41,42 @@ cargo it should use the gdb debugger for our platform to run our software instea
 command to start debugging on our target system.
 
 > If you installed the `gdb-multiarch` package instead of `arm-none-eabi-gdb` in the previous chapter you will need to comment out the runner line and un-comment the next line in this file to make this work for you.
+
+There is one other file that you will need and thats a linker script to tell the linker about the layout of the memory of our target.
+Create a file in the project root called `memory.x` for this. It should contain the following text;
+```
+/* Linker script for the STM32F103C8T6 */
+MEMORY
+RY
+{
+  FLASH : ORIGIN = 0x08000000, LENGTH = 64K
+  RAM : ORIGIN = 0x20000000, LENGTH = 20K
+}
+```
+
+TODO: edit Cargo.toml
+
+Now we are ready to create our first program by editing `src/main.rs`
+```
+#![no_main]
+#![no_std]
+
+#[allow(unused_imports)]
+use panic_semihosting;
+
+use cortex_m_rt::{entry};
+use cortex_m_semihosting::hprintln;
+use hal::prelude::*;
+use hal::stm32;
+
+
+#[entry]
+fn main() -> ! {
+    let _peripherals = cortex_m::Peripherals::take().unwrap();
+    let _device = stm32::Peripherals::take().unwrap();
+
+    hprintln!("Hello semihosting world");
+
+    loop { }
+}
+```
