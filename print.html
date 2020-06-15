@@ -83,7 +83,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div id="sidebar-scrollbox" class="sidebar-scrollbox">
-                <ol class="chapter"><li class="expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> Introduction and Setup</a></li><li><ol class="section"><li class="expanded "><a href="setup_hardware.html"><strong aria-hidden="true">1.1.</strong> Hardware setup</a></li><li class="expanded "><a href="setup_software.html"><strong aria-hidden="true">1.2.</strong> Software installation</a></li></ol></li><li class="expanded "><a href="blink.html"><strong aria-hidden="true">2.</strong> Blink a led</a></li><li><ol class="section"><li class="expanded "><a href="project_setup.html"><strong aria-hidden="true">2.1.</strong> Project setup</a></li><li class="expanded "><a href="programming.html"><strong aria-hidden="true">2.2.</strong> Programming the board</a></li><li class="expanded "><a href="debugging.html"><strong aria-hidden="true">2.3.</strong> Debugging your code</a></li><li class="expanded "><a href="semihosting.html"><strong aria-hidden="true">2.4.</strong> Text output with semihosting</a></li><li class="spacer"></li></ol></li><li class="expanded "><a href="links.html">Links</a></li></ol>
+                <ol class="chapter"><li class="expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> Introduction and Setup</a></li><li><ol class="section"><li class="expanded "><a href="setup_hardware.html"><strong aria-hidden="true">1.1.</strong> Hardware setup</a></li><li class="expanded "><a href="setup_software.html"><strong aria-hidden="true">1.2.</strong> Software installation</a></li></ol></li><li class="expanded "><a href="blink.html"><strong aria-hidden="true">2.</strong> Blink a led</a></li><li><ol class="section"><li class="expanded "><a href="project_setup.html"><strong aria-hidden="true">2.1.</strong> Project setup</a></li><li class="expanded "><a href="debugging.html"><strong aria-hidden="true">2.2.</strong> Run in the debugger</a></li><li class="expanded "><a href="programming.html"><strong aria-hidden="true">2.3.</strong> Programming the board</a></li><li class="expanded "><a href="semihosting.html"><strong aria-hidden="true">2.4.</strong> Text output with semihosting</a></li><li class="spacer"></li></ol></li><li class="expanded "><a href="links.html">Links</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -269,7 +269,6 @@ fn main() -&gt; ! {
     loop { }
 }
 </code></pre>
-<h1><a class="header" href="#programming-the-bluepill" id="programming-the-bluepill">Programming the bluepill</a></h1>
 <h1><a class="header" href="#runing-code-in-the-debugger" id="runing-code-in-the-debugger">Runing code in the debugger</a></h1>
 <p>This document will show you two ways of getting code to run on the bluepill. Eventually the code should be compiled to a <code>.hex</code> file that can be distributed and flashed
 onto your board. But this won't be the way you program your board during development. During development it will be more useful to have a tight deployment and test cycle
@@ -311,6 +310,7 @@ load
 <p>TODO: expand on this file and explain commands.</p>
 <p>Now that you've set this up you should be able to compile and run your code. You do this by first starting <code>openocd</code> by running the script we created earlier; <code>./openocd.sh</code>. Preferably run this in a separate terminal. You can just leave this running when you're developing, so you'll only need to start this once.</p>
 <p>Running your code should be as easy as running <code>cargo run</code> in your project directory.</p>
+<h1><a class="header" href="#programming-the-bluepill" id="programming-the-bluepill">Programming the bluepill</a></h1>
 <h1><a class="header" href="#text-output-with-semihosting" id="text-output-with-semihosting">Text output with Semihosting</a></h1>
 <h1><a class="header" href="#links" id="links">Links</a></h1>
 <p>A collection of resources on Embedded and Rust programming</p>
