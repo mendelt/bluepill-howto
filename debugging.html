@@ -148,7 +148,47 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1><a class="header" href="#debugging" id="debugging">Debugging</a></h1>
+                        <h1><a class="header" href="#runing-code-in-the-debugger" id="runing-code-in-the-debugger">Runing code in the debugger</a></h1>
+<p>This document will show you two ways of getting code to run on the bluepill. Eventually the code should be compiled to a <code>.hex</code> file that can be distributed and flashed
+onto your board. But this won't be the way you program your board during development. During development it will be more useful to have a tight deployment and test cycle
+where you can incrementally write your code, compile it and test it out. Also it will be useful to be able to debug your code to quickly find and solve problems.
+In this chapter we'll show you how to set up your project to quickly use <code>cargo run</code> to build and deploy your program to your board using <code>openocd</code> and the <code>gdb</code> debugger.</p>
+<p>First we need to set up a script to start <code>openocd</code> and connect to your stlink in-circuit-debugger. We described how to connect this debugger to your board at the start of this book.</p>
+<pre><code>#!/bin/sh
+openocd -f interface/stlink-v2.cfg -f target/stm32f1x.cfg
+</code></pre>
+<p>next we'll set up cargo to use gdb as runner when starting our application. We do this by creating a <code>.cargo</code> directory at the root level in our project and creating the file <code>.cargo/config</code> with the following content.</p>
+<pre><code>[target.thumbv7m-none-eabi]
+runner = &quot;arm-none-eabi-gdb -q -x openocd.gdb&quot;
+# runner = &quot;gdb-multiarch -q -x openocd.gdb&quot;
+
+rustflags = [
+    &quot;-C&quot;,
+    &quot;link-arg=-Tlink.x&quot;
+]
+
+[build]
+target = &quot;thumbv7m-none-eabi&quot;
+</code></pre>
+<p>This file first configures the <code>thumbv7m-none-eabi</code> target, the target for our platform, to use gdb as the runner using the file <code>openocd.gdb</code> with some initial commands.
+We'll create this file shortly.</p>
+<p>After this it specifies some flags for the linker and it configures the right default target.</p>
+<p>If you installed gdb-multiarch in the previous chapter you'll need to comment out the runner line and replace it with the line below it.</p>
+<p>Now we'll add the <code>openocd.gdb</code> file with some convenient set-up commands for gdb whenever we run our code. It should look a bit like this but you can customize it later;</p>
+<pre><code>target remote :3333
+set print asm-demangle on
+monitor arm semihosting enable
+
+# detect unhandled exceptions, hard faults and panics
+break DefaultHandler
+break HardFault
+break rust_begin_unwind
+
+load
+</code></pre>
+<p>TODO: expand on this file and explain commands.</p>
+<p>Now that you've set this up you should be able to compile and run your code. You do this by first starting <code>openocd</code> by running the script we created earlier; <code>./openocd.sh</code>. Preferably run this in a separate terminal. You can just leave this running when you're developing, so you'll only need to start this once.</p>
+<p>Running your code should be as easy as running <code>cargo run</code> in your project directory.</p>
 
                     </main>
 
