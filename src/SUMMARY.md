@@ -5,8 +5,8 @@
   - [Software installation](./setup_software.md)
 - [Blink a led](./blink.md)
   - [Project setup](./project_setup.md)
+  - [Run in the debugger](./debugging.md)
   - [Programming the board](./programming.md)
-  - [Debugging your code](./debugging.md)
   - [Text output with semihosting](./semihosting.md)
 
 Peripherals
