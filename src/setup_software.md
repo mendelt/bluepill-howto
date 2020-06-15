@@ -1,4 +1,4 @@
-# The Software
+# Software installation
 This paragraph describes setting up the tools used to program and debug the BluePill board. We'll use the normal Rust tools to write and compile software. Cargo, Rust's
 build tool can cross-compile to target other targets out-of-the-box. We'll just need to add the right build target for the stm32 on the Bluepill board.
 We'll use GDB and OpenOCD to connect to our target hardware for programming and debugging.
