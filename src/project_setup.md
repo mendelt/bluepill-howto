@@ -54,8 +54,6 @@ RY
 }
 ```
 
-TODO: edit Cargo.toml
-
 Now we are ready to create our first program by editing `src/main.rs`
 ```
 #![no_main]
@@ -80,3 +78,18 @@ fn main() -> ! {
     loop { }
 }
 ```
+
+To make this program work we need to add the dependencies we used to Cargo.toml
+```
+[dependencies]
+cortex-m = "0.6.2"
+cortex-m-rt = "0.6.11"
+cortex-m-semihosting = "0.3.5"
+panic-semihosting = "0.5.3"
+
+[dependencies.hal]
+package = "stm32f1xx-hal"
+version = "0.5.3"
+features = ["rt", "stm32f103", "medium"]
+```
+
