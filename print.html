@@ -245,7 +245,6 @@ RY
   RAM : ORIGIN = 0x20000000, LENGTH = 20K
 }
 </code></pre>
-<p>TODO: edit Cargo.toml</p>
 <p>Now we are ready to create our first program by editing <code>src/main.rs</code></p>
 <pre><code>#![no_main]
 #![no_std]
@@ -268,6 +267,18 @@ fn main() -&gt; ! {
 
     loop { }
 }
+</code></pre>
+<p>To make this program work we need to add the dependencies we used to Cargo.toml</p>
+<pre><code>[dependencies]
+cortex-m = &quot;0.6.2&quot;
+cortex-m-rt = &quot;0.6.11&quot;
+cortex-m-semihosting = &quot;0.3.5&quot;
+panic-semihosting = &quot;0.5.3&quot;
+
+[dependencies.hal]
+package = &quot;stm32f1xx-hal&quot;
+version = &quot;0.5.3&quot;
+features = [&quot;rt&quot;, &quot;stm32f103&quot;, &quot;medium&quot;]
 </code></pre>
 <h1><a class="header" href="#runing-code-in-the-debugger" id="runing-code-in-the-debugger">Runing code in the debugger</a></h1>
 <p>This document will show you two ways of getting code to run on the bluepill. Eventually the code should be compiled to a <code>.hex</code> file that can be distributed and flashed
