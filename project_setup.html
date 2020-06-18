@@ -207,7 +207,6 @@ use cortex_m_semihosting::hprintln;
 use hal::prelude::*;
 use hal::stm32;
 
-
 #[entry]
 fn main() -&gt; ! {
     let _peripherals = cortex_m::Peripherals::take().unwrap();
@@ -218,6 +217,12 @@ fn main() -&gt; ! {
     loop { }
 }
 </code></pre>
+<p>TODO: explain no_main and no_std
+TODO: explain panic_semihosting
+TODO: imports
+TODO: explain _peripherals and _device
+TODO: rewrite to blinky
+TODO: explain loop</p>
 <p>To make this program work we need to add the dependencies we used to Cargo.toml</p>
 <pre><code>[dependencies]
 cortex-m = &quot;0.6.2&quot;
@@ -230,6 +235,8 @@ package = &quot;stm32f1xx-hal&quot;
 version = &quot;0.5.3&quot;
 features = [&quot;rt&quot;, &quot;stm32f103&quot;, &quot;medium&quot;]
 </code></pre>
+<p>TODO: fix dependencies.hal
+TODO: explain dependencies</p>
 
                     </main>
 
