@@ -264,11 +264,17 @@ fn main() -&gt; ! {
 </code></pre>
 <p>First the lines with <code>#![no_main]</code> and <code>#![no_std]</code> tell the compiler how we want to set up the
 program. ``#![no_main]<code>tells the compiler that there is no main function like in a normal rust program. We use the</code>cortex_m_rt<code>crate that provides a light-weight runtime for our embedded code. We do have an</code>fn main()<code>but that could be named anything. We use the</code>#[entry]<code>annotation to tell the runtime what the entry point to our code is.</code>#![no_std]<code>simply tells the compiler not to add the Rust</code>std<code>crate. The</code>std<code>crate depends on a lot of primitives that are normally supplied by the operating system of our computer. We do not have an operating system to supply things like threading or file-io so we use</code>#![no_std]<code>to tell the compiler to use the Rust</code>core` crate instead.</p>
-<p>TODO: explain panic_semihosting
-TODO: imports
-TODO: explain _peripherals and _device
-TODO: rewrite to blinky
-TODO: explain loop</p>
+<p>The <code>use panic_semihosting;</code> line tells the compiler what we want to do when our program panics. For
+now we use semihosting. A mechanism to print error messages and debug information over our stlink
+debug connection to our host. This is a slow and cumbersome way of debugging. But it's easy to set
+up so it's a nice way of getting some information out of your microcontroller when there is nothing
+else.</p>
+<p>After this we import some dependencies for our program. And we define the entrypoint as the main
+function. hprintln uses the same semihosting mechanism described earlier to print a message over
+the stlink connection.</p>
+<p>The loop at the end is neccesary to keep our code running. The <code>fn main()</code> return type is <code>!</code> which
+indicates that this function should keep running indefinately.</p>
+<p>TODO: rewrite to blinky</p>
 <p>To make this program work we need to add the dependencies we used to Cargo.toml</p>
 <pre><code>[dependencies]
 cortex-m = &quot;0.6.2&quot;
