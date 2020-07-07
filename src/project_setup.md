@@ -83,11 +83,20 @@ a lot of primitives that are normally supplied by the operating system of our co
 have an operating system to supply things like threading or file-io so we use `#![no_std]` to tell
 the compiler to use the Rust `core` crate instead.
 
-TODO: explain panic_semihosting
-TODO: imports
-TODO: explain _peripherals and _device
+The `use panic_semihosting;` line tells the compiler what we want to do when our program panics. For
+now we use semihosting. A mechanism to print error messages and debug information over our stlink
+debug connection to our host. This is a slow and cumbersome way of debugging. But it's easy to set
+up so it's a nice way of getting some information out of your microcontroller when there is nothing
+else.
+
+After this we import some dependencies for our program. And we define the entrypoint as the main
+function. hprintln uses the same semihosting mechanism described earlier to print a message over
+the stlink connection.
+
+The loop at the end is neccesary to keep our code running. The `fn main()` return type is `!` which
+indicates that this function should keep running indefinately.
+
 TODO: rewrite to blinky
-TODO: explain loop
 
 To make this program work we need to add the dependencies we used to Cargo.toml
 ```
