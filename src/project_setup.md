@@ -73,7 +73,16 @@ fn main() -> ! {
 }
 ```
 
-TODO: explain no_main and no_std
+First the lines with `#![no_main]` and `#![no_std]` tell the compiler how we want to set up the
+program. ``#![no_main]` tells the compiler that there is no main function like in a normal rust
+program. We use the `cortex_m_rt` crate that provides a light-weight runtime for our embedded
+code. We do have an `fn main()` but that could be named anything. We use the `#[entry]` annotation
+to tell the runtime what the entry point to our code is.
+`#![no_std]` simply tells the compiler not to add the Rust `std` crate. The `std` crate depends on
+a lot of primitives that are normally supplied by the operating system of our computer. We do not
+have an operating system to supply things like threading or file-io so we use `#![no_std]` to tell
+the compiler to use the Rust `core` crate instead.
+
 TODO: explain panic_semihosting
 TODO: imports
 TODO: explain _peripherals and _device
