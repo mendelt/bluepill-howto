@@ -204,21 +204,17 @@ use panic_semihosting;
 
 use cortex_m_rt::{entry};
 use cortex_m_semihosting::hprintln;
-use hal::prelude::*;
-use hal::stm32;
 
 #[entry]
 fn main() -&gt; ! {
-    let _peripherals = cortex_m::Peripherals::take().unwrap();
-    let _device = stm32::Peripherals::take().unwrap();
-
     hprintln!(&quot;Hello semihosting world&quot;);
 
     loop { }
 }
 </code></pre>
-<p>TODO: explain no_main and no_std
-TODO: explain panic_semihosting
+<p>First the lines with <code>#![no_main]</code> and <code>#![no_std]</code> tell the compiler how we want to set up the
+program. ``#![no_main]<code>tells the compiler that there is no main function like in a normal rust program. We use the</code>cortex_m_rt<code>crate that provides a light-weight runtime for our embedded code. We do have an</code>fn main()<code>but that could be named anything. We use the</code>#[entry]<code>annotation to tell the runtime what the entry point to our code is.</code>#![no_std]<code>simply tells the compiler not to add the Rust</code>std<code>crate. The</code>std<code>crate depends on a lot of primitives that are normally supplied by the operating system of our computer. We do not have an operating system to supply things like threading or file-io so we use</code>#![no_std]<code>to tell the compiler to use the Rust</code>core` crate instead.</p>
+<p>TODO: explain panic_semihosting
 TODO: imports
 TODO: explain _peripherals and _device
 TODO: rewrite to blinky
