@@ -7,7 +7,6 @@
   - [Project setup](./project_setup.md)
   - [Run in the debugger](./debugging.md)
   - [Programming the board](./programming.md)
-  - [Text output with semihosting](./semihosting.md)
 
 Peripherals
   GPIO
