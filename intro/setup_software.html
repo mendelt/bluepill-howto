@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Blink a led - Bluepill Rust HowTo</title>
+        <title>Software installation - Bluepill Rust HowTo</title>
         
 
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
@@ -11,21 +11,21 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff" />
 
-        <link rel="shortcut icon" href="favicon.png">
-        <link rel="stylesheet" href="css/variables.css">
-        <link rel="stylesheet" href="css/general.css">
-        <link rel="stylesheet" href="css/chrome.css">
-        <link rel="stylesheet" href="css/print.css" media="print">
+        <link rel="shortcut icon" href="../favicon.png">
+        <link rel="stylesheet" href="../css/variables.css">
+        <link rel="stylesheet" href="../css/general.css">
+        <link rel="stylesheet" href="../css/chrome.css">
+        <link rel="stylesheet" href="../css/print.css" media="print">
 
         <!-- Fonts -->
-        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
         <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
 
         <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" href="highlight.css">
-        <link rel="stylesheet" href="tomorrow-night.css">
-        <link rel="stylesheet" href="ayu-highlight.css">
+        <link rel="stylesheet" href="../highlight.css">
+        <link rel="stylesheet" href="../tomorrow-night.css">
+        <link rel="stylesheet" href="../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
         
@@ -35,7 +35,7 @@
     <body>
         <!-- Provide site root to javascript -->
         <script type="text/javascript">
-            var path_to_root = "";
+            var path_to_root = "../";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "light" : "light";
         </script>
 
@@ -81,7 +81,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div id="sidebar-scrollbox" class="sidebar-scrollbox">
-                <ol class="chapter"><li class="expanded "><a href="introduction.html"><strong aria-hidden="true">1.</strong> Introduction and Setup</a></li><li><ol class="section"><li class="expanded "><a href="setup_hardware.html"><strong aria-hidden="true">1.1.</strong> Hardware setup</a></li><li class="expanded "><a href="setup_software.html"><strong aria-hidden="true">1.2.</strong> Software installation</a></li></ol></li><li class="expanded "><a href="blink.html" class="active"><strong aria-hidden="true">2.</strong> Blink a led</a></li><li><ol class="section"><li class="expanded "><a href="project_setup.html"><strong aria-hidden="true">2.1.</strong> Project setup</a></li><li class="expanded "><a href="debugging.html"><strong aria-hidden="true">2.2.</strong> Run in the debugger</a></li><li class="expanded "><a href="programming.html"><strong aria-hidden="true">2.3.</strong> Programming the board</a></li><li class="spacer"></li></ol></li><li class="expanded "><a href="links.html">Links</a></li></ol>
+                <ol class="chapter"><li class="expanded "><a href="../intro/introduction.html"><strong aria-hidden="true">1.</strong> Introduction and Setup</a></li><li><ol class="section"><li class="expanded "><a href="../intro/setup_hardware.html"><strong aria-hidden="true">1.1.</strong> Hardware setup</a></li><li class="expanded "><a href="../intro/setup_software.html" class="active"><strong aria-hidden="true">1.2.</strong> Software installation</a></li></ol></li><li class="expanded "><a href="../blink/blink.html"><strong aria-hidden="true">2.</strong> Blink a led</a></li><li><ol class="section"><li class="expanded "><a href="../blink/project_setup.html"><strong aria-hidden="true">2.1.</strong> Project setup</a></li><li class="expanded "><a href="../blink/debugging.html"><strong aria-hidden="true">2.2.</strong> Run in the debugger</a></li><li class="expanded "><a href="../blink/programming.html"><strong aria-hidden="true">2.3.</strong> Programming the board</a></li><li class="spacer"></li></ol></li><li class="expanded "><a href="../links.html">Links</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -116,7 +116,7 @@
                         <h1 class="menu-title">Bluepill Rust HowTo</h1>
 
                         <div class="right-buttons">
-                            <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <a href="../print.html" title="Print this book" aria-label="Print this book">
                                 <i id="print-button" class="fa fa-print"></i>
                             </a>
                             
@@ -148,20 +148,53 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1><a class="header" href="#blink-a-led" id="blink-a-led">Blink a led</a></h1>
+                        <h1><a class="header" href="#software-installation" id="software-installation">Software installation</a></h1>
+<p>This paragraph describes setting up the tools used to program and debug the BluePill board. We'll use the normal Rust tools to write and compile software. Cargo, Rust's
+build tool can cross-compile to target other targets out-of-the-box. We'll just need to add the right build target for the stm32 on the Bluepill board.
+We'll use GDB and OpenOCD to connect to our target hardware for programming and debugging.</p>
+<h2><a class="header" href="#rust-cargo-and-rustup" id="rust-cargo-and-rustup">Rust, Cargo and Rustup</a></h2>
+<p>We'll assume you already have a working and up-to-date Rust setup on your machine. If not a description on how to install it can be found in the <a href="https://doc.rust-lang.org/book/ch01-01-installation.html">official Rust book</a>. To cross compile sofware for the stm32f103 microcontroller on the bluepill board the additional target <code>thumbv7m-none-eabi</code> needs to be added. This can be done with the following command;</p>
+<pre><code>rustup target add thumbv7m-none-eabi
+</code></pre>
+<h2><a class="header" href="#openocd" id="openocd">OpenOCD</a></h2>
+<p>We'll need OpenOCD to be able to connect to your device so we can program and debug it. A recent (0.10.0 is the newest at the time of writing this document) version can
+probably be installed using the package manager of your choice.
+on Debian based systems this can be done this way;</p>
+<pre><code>sudo apt-get install openocd
+</code></pre>
+<p>On arch or manjaro this will do the trick;</p>
+<pre><code>sudo pacman -S openocd
+</code></pre>
+<h2><a class="header" href="#gdb" id="gdb">GDB</a></h2>
+<p>GDB is the Gnu debugger. There is a special version for debugging Arm devices that we can use to remotely connect to the blue pill and step though your code. There is
+probably a package for your package manager available that can be installed similar to this;</p>
+<pre><code>sudo apt-get install arm-none-eabi-gdb
+</code></pre>
+<p>or</p>
+<pre><code>sudo pacman -S arm-none-eabi-gdb
+</code></pre>
+<blockquote>
+<p>If the <code>arm-none-eabi-gdb</code> package does not exist in your package manager it might be that you're using a system based on Ubuntu 18.04 or later. where this package
+was replaced by the gdb-multiarch package;</p>
+<pre><code>sudo apt-get install gdb-multiarch
+</code></pre>
+<p>Keep in mind that in later chapters you will need to specify a different debugger in some scripts.</p>
+</blockquote>
+<p>Now that we have all the prerequisites set up we can start programming. In the next chapter we'll show how easy it is to create our first embedded software to blink
+a led.</p>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
                         
-                            <a rel="prev" href="setup_software.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../intro/setup_hardware.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
                         
 
                         
-                            <a rel="next" href="project_setup.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next" href="../blink/blink.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
                         
@@ -173,13 +206,13 @@
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
                 
-                    <a href="setup_software.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a href="../intro/setup_hardware.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
                 
 
                 
-                    <a href="project_setup.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a href="../blink/blink.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
                 
@@ -202,14 +235,14 @@
         
 
         
-        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../searcher.js" type="text/javascript" charset="utf-8"></script>
         
 
-        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
-        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../book.js" type="text/javascript" charset="utf-8"></script>
 
         <!-- Custom JS scripts -->
         
