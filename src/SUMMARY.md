@@ -1,12 +1,12 @@
 # Bluepill Rust HowTo
 
-- [Introduction and Setup](./introduction.md)
-  - [Hardware setup](./setup_hardware.md)
-  - [Software installation](./setup_software.md)
-- [Blink a led](./blink.md)
-  - [Project setup](./project_setup.md)
-  - [Run in the debugger](./debugging.md)
-  - [Programming the board](./programming.md)
+- [Introduction and Setup](./intro/introduction.md)
+  - [Hardware setup](./intro/setup_hardware.md)
+  - [Software installation](./intro/setup_software.md)
+- [Blink a led](./blink/blink.md)
+  - [Project setup](./blink/project_setup.md)
+  - [Run in the debugger](./blink/debugging.md)
+  - [Programming the board](./blink/programming.md)
 
 Peripherals
   GPIO
